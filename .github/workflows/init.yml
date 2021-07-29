@@ -33,7 +33,7 @@ jobs:
         id: create-new-repo
         run: |
           aws ecr create-repository \
-            --repository-name $NEW_FUNCTION_NAME \
+            --repository-name ${{ env.NEW_FUNCTION_NAME }} \
             --query 'repository.repositoryArn'
             | tee output.json
           res_code=${PIPESTATUS[0]}
