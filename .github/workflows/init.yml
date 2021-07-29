@@ -30,11 +30,18 @@ jobs:
           aws-region: eu-west-2
 
       - name: Create new ECR Repository
+        id: ecr-new-repo
         run: |
           aws ecr create-repository \
             --repository-name $NEW_FUNCTION_NAME \
             --generate-cli-skeleton
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+      # In order to initialise a new lambda function, we need to have an image in the new ECR repo,
+      # Let's create one
+      # - name: Login to Amazon ECR
+      #   id: login-ecr
+      #   uses: aws-actions/amazon-ecr-login@v1
+      - name: Dump prev step output
+        env:
+          OUTPUT_PLEASE: ${{ toJSON(steps.ecr-new-repo) }}
+        run: echo "$OUTPUT_PLEASE"
