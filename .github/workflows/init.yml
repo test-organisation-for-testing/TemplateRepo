@@ -51,5 +51,5 @@ jobs:
       #   uses: aws-actions/amazon-ecr-login@v1
       - name: Dump prev step output
         env:
-          OUTPUT_PLEASE: ${{ toJSON(steps.create-new-repo) }}
+          OUTPUT_PLEASE: ${{ toJSON(steps.create-new-repo.outputs.cli-output) }}
         run: echo "$OUTPUT_PLEASE"
