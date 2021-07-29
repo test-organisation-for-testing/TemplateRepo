@@ -34,12 +34,8 @@ jobs:
         run: |
           aws ecr create-repository \
             --repository-name $NEW_FUNCTION_NAME \
-            --generate-cli-skeleton \
-            | jq --raw-input --slurp "." \
+            --query 'repository.repositoryArn'
             | tee output.json
-          echo "test"
-          echo "$(cat output.json)"
-          echo "testend"
           res_code=${PIPESTATUS[0]}
           echo "::set-output name=cli-output::$(cat output.json)"
           exit $res_code
