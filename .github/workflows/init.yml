@@ -35,10 +35,9 @@ jobs:
           aws ecr create-repository \
             --repository-name $NEW_FUNCTION_NAME \
             --generate-cli-skeleton \
-            | jq --raw-input --slurp --join-output . \
-            | tee output.json
+            | jq --raw-input --slurp --join-output . 
           res_code=${PIPESTATUS[0]}
-          echo '::set-output name=cli-output::$(cat output.json)'
+          echo "::set-output name=cli-output::$(cat output.json)""
           exit $res_code
 
       # In order to initialise a new lambda function, we need to have an image in the new ECR repo,
