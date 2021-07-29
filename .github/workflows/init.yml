@@ -30,11 +30,15 @@ jobs:
           aws-region: eu-west-2
 
       - name: Create new ECR Repository
-        id: ecr-new-repo
+        id: create-new-repo
         run: |
           aws ecr create-repository \
             --repository-name $NEW_FUNCTION_NAME \
-            --generate-cli-skeleton
+            --generate-cli-skeleton \
+            | tee new_repo.log
+          res_code=${PIPESTATUS[0]}
+          echo "::set-output name=cli-output::$(cat new_repo.log)"
+          exit $res_code
 
       # In order to initialise a new lambda function, we need to have an image in the new ECR repo,
       # Let's create one
