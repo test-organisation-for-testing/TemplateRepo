@@ -35,7 +35,7 @@ jobs:
           aws ecr create-repository \
             --repository-name $NEW_FUNCTION_NAME \
             --generate-cli-skeleton \
-            | jq --raw-input --slurp --join-output "." \
+            | jq --raw-input --slurp "." \
             | tee output.json
           echo "test"
           echo "$(cat output.json)"
